@@ -1,46 +1,475 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Japan Food Explorer - 予約代行 & AI Travel Plan</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-/* simplified CSS (full CSS from previous answer retained) */
-body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans JP",sans-serif;background:#fafafa;padding:16px;}
-.page{max-width:900px;margin:0 auto;}
-.section{background:#fff;padding:16px;margin-top:16px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
-.btn-primary{background:#111;color:#fff;padding:10px;border-radius:999px;width:100%;border:none;}
-.btn-outline{padding:10px;border-radius:999px;width:100%;border:1px solid #111;background:#fff;}
-</style>
+  <meta charset="UTF-8" />
+  <title>Japan Food Explorer Reserve – Restaurant Booking & AI Trip Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="English-friendly restaurant reservation concierge and AI-powered trip planning service for your journey in Japan." />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+      background: #050816;
+      color: #111827;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1040px; margin: 0 auto; padding: 16px 16px 40px; }
+
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0 4px;
+    }
+    .logo-block { display: flex; flex-direction: column; }
+    .logo {
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #f9fafb;
+    }
+    .logo-sub { font-size: 11px; color: #9ca3af; }
+    .nav-cta {
+      padding: 7px 14px; font-size: 12px; border-radius: 999px;
+      border: 1px solid rgba(249,250,251,0.15);
+      color: #f9fafb; background: rgba(15,23,42,0.7);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      margin-top: 18px; padding: 20px 16px 18px; border-radius: 20px;
+      background: radial-gradient(circle at top left,#22c55e 0,#111827 35%,#020617 85%);
+      color: #f9fafb;
+      display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: 16px;
+    }
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: minmax(0,1fr); }
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(15,23,42,0.7); font-size: 11px; margin-bottom: 8px;
+    }
+    .hero-tag span {
+      font-size: 9px; padding: 2px 6px; border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.8);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .hero-title {
+      font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 8px;
+    }
+    .hero-text { font-size: 13px; color: #e5e7eb; margin-bottom: 10px; }
+    .hero-list { font-size: 12px; color: #d1d5db; margin-left: 18px; margin-bottom: 12px; }
+    .hero-list li { margin-bottom: 3px; }
+    .hero-note { font-size: 11px; color: #9ca3af; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .btn-ghost, .btn-ghost-secondary {
+      padding: 7px 14px; border-radius: 999px; font-size: 12px;
+      display: inline-block;
+    }
+    .btn-ghost {
+      border: 1px solid rgba(248,250,252,0.6);
+      background: transparent; color: #f9fafb;
+    }
+    .btn-ghost-secondary {
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.6); color: #e5e7eb;
+    }
+
+    .hero-image {
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.3);
+      background: radial-gradient(circle at top,#4ade80,#022c22 45%,#020617 95%);
+      position: relative; min-height: 180px;
+    }
+    .hero-image-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 12px; gap: 6px;
+    }
+    .hero-stat-card {
+      background: rgba(15,23,42,0.85);
+      border-radius: 12px; padding: 8px 10px;
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 11px; color: #e5e7eb;
+    }
+    .hero-stat-title { font-weight: 600; margin-bottom: 2px; }
+    .hero-stat-row {
+      display: flex; justify-content: space-between;
+      font-size: 10px; color: #9ca3af;
+    }
+    .hero-avatar-row {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: #e5e7eb;
+    }
+    .hero-avatar {
+      width: 28px; height: 28px; border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%,#f9fafb,#22c55e 50%,#0f172a 100%);
+      border: 1px solid rgba(148,163,184,0.8);
+    }
+
+    .main {
+      margin-top: 18px;
+      display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1.1fr); gap: 16px;
+    }
+    @media (max-width: 880px) {
+      .main { grid-template-columns: minmax(0,1fr); }
+    }
+    .section-card {
+      background: #f9fafb; border-radius: 16px;
+      padding: 16px 14px; box-shadow: 0 18px 40px rgba(15,23,42,0.45);
+      border: 1px solid rgba(15,23,42,0.08);
+      margin-bottom: 12px;
+    }
+    .section-title { font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+    .section-sub { font-size: 12px; color: #6b7280; margin-bottom: 10px; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+    .pill {
+      font-size: 11px; padding: 3px 8px; border-radius: 999px;
+      border: 1px solid #e5e7eb; background: #f3f4f6; color: #4b5563;
+    }
+
+    .benefit-list { margin: 8px 0 10px; font-size: 12px; color: #374151; }
+    .benefit-list li { margin-left: 18px; margin-bottom: 4px; }
+
+    .steps { margin: 10px 0 8px; font-size: 12px; color: #111827; }
+    .steps li { margin-left: 18px; margin-bottom: 4px; }
+
+    .highlight-box {
+      margin-top: 10px; padding: 10px; border-radius: 12px;
+      background: #ecfdf5; border: 1px solid #bbf7d0;
+      font-size: 11px; color: #166534;
+    }
+    .highlight-title { font-weight: 600; margin-bottom: 4px; font-size: 12px; }
+    .form-button-group { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+
+    .btn-primary, .btn-secondary {
+      display: inline-block; width: 100%; text-align: center;
+      padding: 9px 14px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { border: none; background: #111827; color: #f9fafb; }
+    .btn-secondary {
+      border: 1px solid #111827; background: #f9fafb; color: #111827;
+      font-size: 12px; font-weight: 500;
+    }
+    .btn-note { font-size: 11px; color: #6b7280; text-align: center; }
+
+    .payment-box {
+      margin-top: 12px; padding: 10px; border-radius: 12px;
+      background: #fefce8; border: 1px dashed #facc15;
+      font-size: 11px; color: #854d0e;
+    }
+    .payment-title { font-weight: 600; margin-bottom: 4px; font-size: 12px; }
+
+    .form-embed {
+      margin-top: 10px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+    }
+    .form-embed iframe {
+      width: 100%;
+      border: 0;
+    }
+
+    .side-card {
+      background: rgba(15,23,42,0.96);
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+      color: #e5e7eb;
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 22px 45px rgba(15,23,42,0.85);
+    }
+    .side-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .side-copy { font-size: 12px; color: #9ca3af; margin-bottom: 8px; }
+    .side-list { font-size: 11px; color: #e5e7eb; margin-left: 16px; margin-bottom: 8px; }
+    .side-list li { margin-bottom: 4px; }
+
+    .mini-badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .mini-badge {
+      font-size: 10px; padding: 3px 7px; border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7); color: #e5e7eb;
+    }
+
+    .image-grid {
+      display: grid; grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 6px; margin-top: 10px; margin-bottom: 8px;
+    }
+    .image-card {
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: radial-gradient(circle at top,#4ade80,#1f2937 50%,#020617 100%);
+      min-height: 70px; position: relative;
+    }
+    .image-label {
+      position: absolute; left: 8px; bottom: 6px;
+      font-size: 10px; color: #f9fafb;
+      background: rgba(15,23,42,0.6);
+      padding: 2px 6px; border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+    }
+
+    footer {
+      margin-top: 26px; padding-top: 12px;
+      border-top: 1px solid rgba(31,41,55,0.6);
+      font-size: 11px; color: #6b7280;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    footer a { color: #9ca3af; text-decoration: underline; }
+  </style>
 </head>
 <body>
-<div class="page">
-<h1>@japanfoodexplorer_reserve</h1>
-<h2>日本の飲食店予約 & AI旅程サービス</h2>
+  <div class="page">
+    <header>
+      <div class="logo-block">
+        <div class="logo">JAPAN FOOD EXPLORER RESERVE</div>
+        <div class="logo-sub">Restaurant Booking Concierge &amp; AI Trip Planner in Japan</div>
+      </div>
+      <a class="nav-cta" href="https://www.instagram.com/japanfoodexplorer_reserve" target="_blank" rel="noopener">
+        DM us on Instagram
+      </a>
+    </header>
 
-<div class="section">
-<h3>レストラン予約代行</h3>
-<form>
-<input placeholder="Name" required><br><br>
-<input placeholder="Instagram ID" required><br><br>
-<textarea placeholder="Restaurant details"></textarea><br><br>
-<button class="btn-primary">送信</button>
-</form>
-<br>
-<a href="https://example.com/stripe" class="btn-outline">決済ページへ</a>
-</div>
+    <section class="hero">
+      <div>
+        <div class="hero-tag">
+          <span>FROM INSTAGRAM</span>
+          English-friendly support for Japan trips
+        </div>
+        <h1 class="hero-title">
+          Book hard-to-get restaurants<br />&amp; design your Japan trip in English.
+        </h1>
+        <p class="hero-text">
+          We call restaurants in Japanese, hold your booking, and create an AI-powered custom itinerary –
+          so you can enjoy Japan instead of fighting websites and phone calls.
+        </p>
+        <ul class="hero-list">
+          <li>✅ Restaurant reservation concierge (phone calls in Japanese)</li>
+          <li>✅ AI-generated day-by-day travel plan tailored to you</li>
+          <li>✅ Simple flow: Google Form → Online Payment → Confirmation within 24–48h</li>
+        </ul>
+        <p class="hero-note">
+          This page is for guests who reached us from Instagram.
+          Please submit the form first, then complete payment on the next page.
+        </p>
+        <div class="hero-buttons">
+          <a href="#restaurant" class="btn-ghost">🍣 Restaurant booking form</a>
+          <a href="#itinerary" class="btn-ghost-secondary">🧳 AI trip plan form</a>
+        </div>
+      </div>
+      <div class="hero-image" aria-hidden="true">
+        <div class="hero-image-inner">
+          <div class="hero-stat-card">
+            <div class="hero-stat-title">Why use a human + AI combo?</div>
+            <div class="hero-stat-row">
+              <span>Language barrier</span><span>We call in Japanese.</span>
+            </div>
+            <div class="hero-stat-row">
+              <span>Fully booked online</span><span>Phone-only slots available.</span>
+            </div>
+            <div class="hero-stat-row">
+              <span>Too many choices</span><span>AI curates a realistic plan.</span>
+            </div>
+          </div>
+          <div class="hero-avatar-row">
+            <div class="hero-avatar"></div>
+            <div>
+              <div style="font-weight:600;">Local support from Japan</div>
+              <div style="font-size:10px;color:#9ca3af;">One point of contact for both restaurant bookings and travel planning.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div class="section">
-<h3>AI旅程作成</h3>
-<form>
-<input placeholder="Name" required><br><br>
-<textarea placeholder="Travel dates"></textarea><br><br>
-<button class="btn-primary">送信</button>
-</form>
-<br>
-<a href="https://example.com/stripe-itinerary" class="btn-outline">決済ページへ</a>
-</div>
+    <main class="main">
+      <div>
+        <!-- Restaurant section -->
+        <section id="restaurant" class="section-card">
+          <h2 class="section-title">Restaurant Reservation Concierge</h2>
+          <p class="section-sub">
+            We call restaurants in Japanese on your behalf and secure your table whenever possible.
+            Perfect for popular local places that don&apos;t offer English booking or online systems.
+          </p>
 
-</div>
+          <div class="pill-row">
+            <div class="pill">From USD 5 per restaurant</div>
+            <div class="pill">Reply within 24 hours</div>
+            <div class="pill">Tokyo · Osaka · Kyoto · more</div>
+          </div>
+
+          <ul class="benefit-list">
+            <li><strong>Save time:</strong> No more calling multiple restaurants or struggling with Japanese websites.</li>
+            <li><strong>Beat the language barrier:</strong> We explain your requests (allergies, occasions, counter seats, etc.) in natural Japanese.</li>
+            <li><strong>Clear status:</strong> We tell you if the booking is confirmed, waitlisted, or impossible – and suggest backups if needed.</li>
+            <li><strong>Useful for small local places:</strong> Especially izakaya, ramen, yakitori, or local gems that only take phone calls.</li>
+          </ul>
+
+          <h3 style="font-size:13px;font-weight:600;margin-top:6px;">How it works</h3>
+          <ol class="steps">
+            <li>Submit the Google Form with your preferred restaurant, date/time, and group size.</li>
+            <li>Complete the online payment (per restaurant) via the payment link.</li>
+            <li>We call the restaurant and send you the result by Instagram DM or email within 24 hours.</li>
+          </ol>
+
+          <div class="highlight-box">
+            <div class="highlight-title">Step 1 – Restaurant request form (Google Form)</div>
+            <p>
+              You can fill this form in English. If you have multiple candidates, list them in priority order.
+            </p>
+            <div class="form-button-group">
+              <a class="btn-primary" href="https://forms.gle/HegkjiBdnwToSmkt8" target="_blank" rel="noopener">
+                Open restaurant request form
+              </a>
+              <p class="btn-note">
+                You can also fill the form directly below on this page.
+              </p>
+            </div>
+          </div>
+
+          <!-- Embedded Google Form -->
+          <div class="form-embed">
+            <iframe src="https://forms.gle/HegkjiBdnwToSmkt8" height="640" loading="lazy">
+              Loading…
+            </iframe>
+          </div>
+
+          <div class="payment-box">
+            <div class="payment-title">Step 2 – Online payment</div>
+            <p>
+              After submitting the form, please pay the concierge fee. One payment covers our time to contact the restaurant and manage the communication.
+            </p>
+            <!-- TODO: replace with your Stripe / PayPal URL -->
+            <a class="btn-secondary" href="https://example.com/your-restaurant-payment-link" target="_blank" rel="noopener">
+              Go to restaurant booking payment page
+            </a>
+            <p style="margin-top:6px;">
+              <strong>Sample refund policy text:</strong><br />
+              If we cannot secure any of your requested restaurants or dates, we may offer a full or partial refund.
+              Please adjust this sentence according to your real policy.
+            </p>
+          </div>
+        </section>
+
+        <!-- AI itinerary section -->
+        <section id="itinerary" class="section-card">
+          <h2 class="section-title">AI-Powered Custom Trip Plan</h2>
+          <p class="section-sub">
+            Share your dates, budget, and interests – we design a realistic, easy-to-follow plan for each day
+            of your stay in Japan, using AI plus local knowledge.
+          </p>
+
+          <div class="pill-row">
+            <div class="pill">Trip plan monetized via affiliate links</div>
+            <div class="pill">Delivery within 24–48 hours</div>
+            <div class="pill">PDF or text + Google Maps links</div>
+          </div>
+
+          <ul class="benefit-list">
+            <li><strong>Remove planning stress:</strong> No need to compare hundreds of blogs, maps, and TikTok spots.</li>
+            <li><strong>Optimized by location &amp; time:</strong> We group places so you don&apos;t waste hours on trains.</li>
+            <li><strong>Matched to your style:</strong> Food-focused, shopping-heavy, nature &amp; hiking, cafe hopping – we tune it to you.</li>
+            <li><strong>Easy to tweak:</strong> You can ask us to adjust the plan (for example, “less walking” or “more budget-friendly options”).</li>
+          </ul>
+
+          <h3 style="font-size:13px;font-weight:600;margin-top:6px;">How it works</h3>
+          <ol class="steps">
+            <li>Submit the AI trip request form with your dates, cities, and preferences.</li>
+            <li>Complete the online payment based on the plan type you choose (if applicable).</li>
+            <li>Receive your custom itinerary via Instagram DM or email within 24–48 hours.</li>
+          </ol>
+
+          <div class="highlight-box">
+            <div class="highlight-title">Step 1 – AI trip request form (Google Form)</div>
+            <p>
+              You can write in simple English or bullet points. Feel free to paste links to restaurants, spots, or TikToks you definitely want to visit.
+            </p>
+            <div class="form-button-group">
+              <a class="btn-primary" href="https://forms.gle/1h6Pg2JUN773dfrt5" target="_blank" rel="noopener">
+                Open AI trip request form
+              </a>
+              <p class="btn-note">
+                You can also fill the form directly below on this page.
+              </p>
+            </div>
+          </div>
+
+          <!-- Embedded AI trip Google Form -->
+          <div class="form-embed">
+            <iframe src="https://forms.gle/1h6Pg2JUN773dfrt5" height="640" loading="lazy">
+              Loading…
+            </iframe>
+          </div>
+
+          <div class="payment-box">
+            <div class="payment-title">Step 2 – Online payment for AI trip plan</div>
+            <p>
+              Please choose the plan that fits your trip length and complexity on the payment page (if you offer paid plans in addition to affiliate links).
+            </p>
+            <!-- TODO: replace with your Stripe / PayPal URL -->
+            <a class="btn-secondary" href="https://example.com/your-itinerary-payment-link" target="_blank" rel="noopener">
+              Go to AI trip plan payment page
+            </a>
+            <p style="margin-top:6px;">
+              One plan can cover multiple people in your group (friends, couple, or family).
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <aside class="side-card">
+        <h3 class="side-title">Why use this service instead of doing everything alone?</h3>
+        <p class="side-copy">
+          Japan is amazing – but restaurant bookings and planning can be confusing:
+          different websites, phone calls in Japanese, and trains that don&apos;t go where you expect.
+          We combine human support + AI tools to remove that friction for you.
+        </p>
+
+        <ul class="side-list">
+          <li><strong>One contact for both food &amp; travel:</strong> You don&apos;t need to chat with 5 different accounts.</li>
+          <li><strong>Clear communication in English:</strong> We translate your needs into natural Japanese for restaurants.</li>
+          <li><strong>Locally realistic plans:</strong> No more “10 famous spots in 1 afternoon” type of unrealistic itineraries.</li>
+          <li><strong>Transparent fixed fees:</strong> You know what you pay for – our time and expertise, not hidden markups.</li>
+        </ul>
+
+        <div class="mini-badge-row">
+          <div class="mini-badge">Language barrier → solved</div>
+          <div class="mini-badge">Time &amp; energy → saved</div>
+          <div class="mini-badge">Trip quality → upgraded</div>
+        </div>
+
+        <div class="image-grid">
+          <div class="image-card"><div class="image-label">Local food spots</div></div>
+          <div class="image-card"><div class="image-label">Cozy izakaya nights</div></div>
+          <div class="image-card"><div class="image-label">Cafe &amp; dessert tour</div></div>
+          <div class="image-card"><div class="image-label">Hidden neighborhoods</div></div>
+        </div>
+
+        <h4 class="side-title" style="margin-top:10px;">How to get started</h4>
+        <ol class="side-list" style="margin-bottom:6px;">
+          <li>Pick the service you need – restaurant booking and/or AI trip plan.</li>
+          <li>Open the Google Form and send us the details.</li>
+          <li>Complete the online payment on the next page.</li>
+          <li>Relax – we&apos;ll get back to you via Instagram DM or email.</li>
+        </ol>
+
+        <p class="side-copy" style="margin-top:4px;">
+          If you are not sure which option fits your trip, feel free to DM us on Instagram and briefly explain your situation.
+          We&apos;re happy to suggest the minimum service that still makes your trip much easier.
+        </p>
+      </aside>
+    </main>
+
+    <footer>
+      <div>© Japan Food Explorer Reserve</div>
+      <div>
+        Instagram: <a href="https://www.instagram.com/japanfoodexplorer_reserve" target="_blank" rel="noopener">@japanfoodexplorer_reserve</a>
+      </div>
+      <div>
+        <a href="tokutei.html">Act on Specified Commercial Transactions (特定商取引法に基づく表記)</a>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
