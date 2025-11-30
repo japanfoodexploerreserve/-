@@ -28,10 +28,25 @@
     }
     .logo-sub { font-size: 11px; color: #9ca3af; }
     .nav-cta {
+      display:flex;
+      align-items:center;
+      gap:6px;
       padding: 7px 14px; font-size: 12px; border-radius: 999px;
       border: 1px solid rgba(249,250,251,0.15);
       color: #f9fafb; background: rgba(15,23,42,0.7);
       backdrop-filter: blur(10px);
+    }
+    .nav-cta-icon {
+      width:16px;
+      height:16px;
+      border-radius:4px;
+      background: radial-gradient(circle at 0% 100%, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:9px;
+      color:#fff;
+      font-weight:700;
     }
 
     .hero {
@@ -173,6 +188,36 @@
       border: 0;
     }
 
+    details.form-toggle {
+      margin-top:10px;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      padding:6px 10px 10px;
+    }
+    details.form-toggle > summary {
+      list-style:none;
+      cursor:pointer;
+      font-size:12px;
+      font-weight:600;
+      color:#111827;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    details.form-toggle > summary::-webkit-details-marker { display:none; }
+    .summary-hint {
+      font-size:11px;
+      color:#6b7280;
+      margin-top:2px;
+    }
+    details.form-toggle[open] {
+      background:#ffffff;
+    }
+    details.form-toggle[open] summary {
+      margin-bottom:6px;
+    }
+
     .side-card {
       background: rgba(15,23,42,0.96);
       border-radius: 18px;
@@ -199,8 +244,15 @@
     .image-card {
       border-radius: 10px; overflow: hidden;
       border: 1px solid rgba(148,163,184,0.4);
-      background: radial-gradient(circle at top,#4ade80,#1f2937 50%,#020617 100%);
+      background:#020617;
       min-height: 70px; position: relative;
+    }
+    .image-photo {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:brightness(0.88);
     }
     .image-label {
       position: absolute; left: 8px; bottom: 6px;
@@ -226,8 +278,9 @@
         <div class="logo">JAPAN FOOD EXPLORER RESERVE</div>
         <div class="logo-sub">Restaurant Booking Concierge &amp; AI Trip Planner in Japan</div>
       </div>
-      <a class="nav-cta" href="https://www.instagram.com/japanfoodexplorer_reserve" target="_blank" rel="noopener">
-        DM us on Instagram
+      <a class="nav-cta" href="https://www.instagram.com/japanfoodexplorer_reserve/" target="_blank" rel="noopener">
+        <span class="nav-cta-icon">IG</span>
+        <span>DM us on Instagram</span>
       </a>
     </header>
 
@@ -323,17 +376,24 @@
                 Open restaurant request form
               </a>
               <p class="btn-note">
-                You can also fill the form directly below on this page.
+                Prefer to stay on this page? You can also open the form inline below.
               </p>
             </div>
           </div>
 
-          <!-- Embedded Google Form -->
-          <div class="form-embed">
-            <iframe src="https://forms.gle/HegkjiBdnwToSmkt8" height="640" loading="lazy">
-              Loading…
-            </iframe>
-          </div>
+          <!-- Collapsible embedded Google Form -->
+          <details class="form-toggle">
+            <summary>
+              Fill in the restaurant form here
+              <span style="font-size:11px;color:#6b7280;">(tap to open / close)</span>
+            </summary>
+            <div class="summary-hint">Embedded Google Form (same content as the button above).</div>
+            <div class="form-embed" style="margin-top:6px;border:none;">
+              <iframe src="https://forms.gle/HegkjiBdnwToSmkt8" height="640" loading="lazy">
+                Loading…
+              </iframe>
+            </div>
+          </details>
 
           <div class="payment-box">
             <div class="payment-title">Step 2 – Online payment</div>
@@ -390,17 +450,24 @@
                 Open AI trip request form
               </a>
               <p class="btn-note">
-                You can also fill the form directly below on this page.
+                Prefer to stay on this page? You can also open the form inline below.
               </p>
             </div>
           </div>
 
-          <!-- Embedded AI trip Google Form -->
-          <div class="form-embed">
-            <iframe src="https://forms.gle/1h6Pg2JUN773dfrt5" height="640" loading="lazy">
-              Loading…
-            </iframe>
-          </div>
+          <!-- Collapsible embedded AI trip Google Form -->
+          <details class="form-toggle">
+            <summary>
+              Fill in the AI trip form here
+              <span style="font-size:11px;color:#6b7280;">(tap to open / close)</span>
+            </summary>
+            <div class="summary-hint">Embedded Google Form (same content as the button above).</div>
+            <div class="form-embed" style="margin-top:6px;border:none;">
+              <iframe src="https://forms.gle/1h6Pg2JUN773dfrt5" height="640" loading="lazy">
+                Loading…
+              </iframe>
+            </div>
+          </details>
 
           <div class="payment-box">
             <div class="payment-title">Step 2 – Online payment for AI trip plan</div>
@@ -440,10 +507,22 @@
         </div>
 
         <div class="image-grid">
-          <div class="image-card"><div class="image-label">Local food spots</div></div>
-          <div class="image-card"><div class="image-label">Cozy izakaya nights</div></div>
-          <div class="image-card"><div class="image-label">Cafe &amp; dessert tour</div></div>
-          <div class="image-card"><div class="image-label">Hidden neighborhoods</div></div>
+          <div class="image-card">
+            <img class="image-photo" src="https://source.unsplash.com/600x400/?japanese,food" alt="Japanese local food">
+            <div class="image-label">Local food spots</div>
+          </div>
+          <div class="image-card">
+            <img class="image-photo" src="https://source.unsplash.com/600x400/?izakaya,japan" alt="Cozy izakaya">
+            <div class="image-label">Cozy izakaya nights</div>
+          </div>
+          <div class="image-card">
+            <img class="image-photo" src="https://source.unsplash.com/600x400/?dessert,japan" alt="Cafe and dessert tour">
+            <div class="image-label">Cafe &amp; dessert tour</div>
+          </div>
+          <div class="image-card">
+            <img class="image-photo" src="https://source.unsplash.com/600x400/?tokyo,street" alt="Hidden neighborhoods in Japan">
+            <div class="image-label">Hidden neighborhoods</div>
+          </div>
         </div>
 
         <h4 class="side-title" style="margin-top:10px;">How to get started</h4>
@@ -464,7 +543,7 @@
     <footer>
       <div>© Japan Food Explorer Reserve</div>
       <div>
-        Instagram: <a href="https://www.instagram.com/japanfoodexplorer_reserve" target="_blank" rel="noopener">@japanfoodexplorer_reserve</a>
+        Instagram: <a href="https://www.instagram.com/japanfoodexplorer_reserve/" target="_blank" rel="noopener">@japanfoodexplorer_reserve</a>
       </div>
       <div>
         <a href="tokutei.html">Act on Specified Commercial Transactions (特定商取引法に基づく表記)</a>
